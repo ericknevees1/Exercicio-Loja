@@ -8,7 +8,7 @@ export default function HomeScreen({ navigation, route }) {
   const [ListaProdutos, setListaprodutos] = useState([])
 
   useEffect(() => {
-    axios.get('https://dummyjson.com/products/category-list')
+    axios.get('https://dummyjson.com/products/category-list?delay=1000')
       .then(resposta => {
         console.log(resposta.data)
         setListaprodutos(resposta.data)

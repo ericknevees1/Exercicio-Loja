@@ -9,7 +9,7 @@ export default function ProdutoScreen({ route }) {
   const [erro, setErro] = useState(null);
 
   useEffect(() => {
-    console.log("ID recebido:", id);
+    console.log("ID recebido:", id); // log para depuração
     axios
       .get(`https://dummyjson.com/products/${id}`)
       .then((resposta) => {
@@ -30,10 +30,11 @@ export default function ProdutoScreen({ route }) {
           <Card.Cover source={{ uri: produto.thumbnail }} />
           <Card.Title title={produto.title} />
           <Card.Content>
-            <Text variant="bodyMedium">{produto.description}</Text>
-            <Text variant="titleLarge">Preço: ${produto.price}</Text>
+          <Text variant="bodyMedium">{produto.description}</Text>
             <Text variant="bodyMedium">Marca: {produto.brand}</Text>
-            <Text variant="bodyMedium">Categoria: {produto.category}</Text>
+            <Text variant="bodyMedium">Classificação: {produto.rating}</Text>
+            <Text variant="bodyMedium">Em estoque: {produto.stock}</Text>
+            <Text variant="titleLarge">Preço: ${produto.price}</Text>
           </Card.Content>
         </Card>
       ) : (

@@ -10,7 +10,7 @@ export default function ListaProdutosScreen({ route, navigation }) {
 
   useEffect(() => {
     axios
-      .get(`https://dummyjson.com/products/category/${category}`)
+      .get(`https://dummyjson.com/products/category/${encodeURIComponent(category)}`)
       .then((resposta) => {
         setLProdutos(resposta.data.products); 
       })
