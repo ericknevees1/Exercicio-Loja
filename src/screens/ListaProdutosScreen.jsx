@@ -3,17 +3,16 @@ import { View, FlatList, StyleSheet } from 'react-native';
 import { Card, Avatar, Text } from 'react-native-paper';
 import axios from 'axios';
 
-export default function ListaProdutosScreen({ route }) {
-  const { category } = route.params; // Obtém a categoria passada pela navegação
-  const [produtos, setProdutos] = useState([]);
+export default function ListaProdutosScreen({ route, navigation }) {
+  const { category } = route.params; 
+  const [Lprodutos, setLProdutos] = useState([]);
   const [erro, setErro] = useState(null);
 
   useEffect(() => {
-    // Faz uma requisição para buscar os produtos da categoria
     axios
       .get(`https://dummyjson.com/products/category/${category}`)
       .then((resposta) => {
-        setProdutos(resposta.data.products); // Define os produtos retornados pela API
+        setLProdutos(resposta.data.products); 
       })
       .catch((erro) => {
         console.error(erro);
@@ -27,13 +26,15 @@ export default function ListaProdutosScreen({ route }) {
         <Text style={styles.errorText}>{erro}</Text>
       ) : (
         <FlatList
-          data={produtos}
-          keyExtractor={(item) => item.id.toString()}
+          data={Lprodutos}
+          keyExtractor={(item, index) => item.id ? item.id.toString() : index.toString()}
           renderItem={({ item }) => (
-            <Card style={styles.card}
-            onPress={() => navigation.navigate('ProdutoScreen', {category: item})}>
+            <Card
+              style={styles.card}
+              onPress={() => navigation.navigate('ProdutoScreen', { id: item.id })} 
+            >
               <Card.Title
-                title={item.title}
+                title={item.title || 'Produto sem título'}
                 left={(props) => (
                   <Avatar.Image {...props} source={{ uri: item.thumbnail }} />
                 )}
@@ -42,7 +43,7 @@ export default function ListaProdutosScreen({ route }) {
           )}
           ListEmptyComponent={() => (
             <View style={styles.loadingContainer}>
-              <Text variant="titleLarge">Carregando produtos...</Text>
+              <Text variant="titleLarge">Carregando Lista de produtos...</Text>
             </View>
           )}
         />

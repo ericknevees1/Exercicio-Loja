@@ -7,11 +7,7 @@ export default function HomeScreen({ navigation, route }) {
 
   const [ListaProdutos, setListaprodutos] = useState([])
 
-  // Fazer algo quando o usuário entrar na tela (Componente for montado)
   useEffect(() => {
-    // Tudo que eu quero fazer quando o usuário entrar na tela
-    // vai aqui dentro
-    // Fazer uma requisição para buscar a lista de usuários
     axios.get('https://dummyjson.com/products/category-list')
       .then(resposta => {
         console.log(resposta.data)
